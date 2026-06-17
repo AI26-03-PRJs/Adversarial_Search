@@ -7,15 +7,21 @@ class MinimaxAgent:
 
     def evaluate(self, game, player):
         opponent = -player
-        agent_score = game.score(player)
-        opponent_score = game.score(opponent)
- 
+        black_score, white_score = game.score()
+        
+        if player == 1: 
+            agent_score = black_score
+            opponent_score = white_score
+        else: 
+            agent_score = white_score
+            opponent_score = black_score
+        
         agent_moves = len(game.get_valid_moves(player))
         opponent_moves = len(game.get_valid_moves(opponent))
- 
+        
         score_diff = agent_score - opponent_score
         moves_diff = agent_moves - opponent_moves
- 
+        
         return score_diff + 2 * moves_diff
 
     def minimax(self, game, depth, maximizing, root_player):
