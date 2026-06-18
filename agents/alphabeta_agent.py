@@ -4,27 +4,32 @@ class AlphaBetaAgent:
         self.depth = depth
 
     def evaluate(self, game, player):
-        b, w = game.score()
+        opponent = -player
+        if game.game_over():
+            black_score, white_score = game.score()
+            return (black_score - white_score) if player == 1 else (white_score - black_score)
+        w1 = 1.0
+        w2 = 0.6
+        w3 = 2
+        black_score, white_score = game.score()
         if player == 1:
-            my_score = b
-            opp_score = w
+            agent_score = black_score
+            opponent_score = white_score
         else:
-            my_score = w
-            opp_score = b
-        score = 0.9*(my_score - opp_score)
-        corners = [(0, 0),(0, game.size - 1),(game.size - 1, 0),(game.size - 1, game.size - 1)]
+            agent_score = white_score
+            opponent_score = black_score
+        score_diff = agent_score - opponent_score
+        agent_moves = len(game.get_valid_moves(player))
+        opponent_moves = len(game.get_valid_moves(opponent))
+        moves_diff = agent_moves - opponent_moves
+        corners = [(0, 0), (0, game.size - 1), (game.size - 1, 0), (game.size - 1, game.size - 1)]
+        corner_score = 0
         for row, col in corners:
             if game.board[row][col] == player:
-                score += 2
-            elif game.board[row][col] == -player:
-                score -= 2
-
-        my_moves = len(game.get_valid_moves(player))
-        opp_moves = len(game.get_valid_moves(-player))
-        score += 0.5*(my_moves - opp_moves)
-
-        return score
-
+                corner_score += 1
+            elif game.board[row][col] == opponent:
+                corner_score -= 1
+        return (w1 * score_diff + w2 * moves_diff + w3 * corner_score)
     def alphabeta(self, game, depth, alpha, beta, maximizing, root_player):
       
         current_player = root_player if maximizing else -root_player
