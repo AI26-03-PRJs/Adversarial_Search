@@ -15,3 +15,6 @@ from agents.alphabeta_agent import AlphaBetaAgent
 from tournament import play_game
 
 print(play_game(GreedyAgent(), MinimaxAgent()))
+print(play_game(GreedyAgent(), AlphaBetaAgent()))
+print(play_game(RandomAgent(), MinimaxAgent()))
+print(play_game(RandomAgent(), AlphaBetaAgent()))
