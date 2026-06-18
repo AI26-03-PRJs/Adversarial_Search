@@ -8,7 +8,7 @@ DIRECTIONS = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 
 
 
 class Othello:
-    def __init__(self, size=6):
+    def __init__(self, size=8):
         self.size = size
         self.board = [[0] * size for _ in range(size)]
         m = size // 2

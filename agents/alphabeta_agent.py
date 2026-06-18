@@ -40,7 +40,7 @@ class AlphaBetaAgent:
         moves = game.get_valid_moves(current_player)
 
         if not moves:
-            value,mo = self.alphabeta(game,depth - 1,alpha,beta,not maximizing,root_player)
+            value,mo = self.alphabeta(game,depth-1,alpha,beta,not maximizing,root_player)
             return value, None
 
         best_move = moves[0]
@@ -73,9 +73,6 @@ class AlphaBetaAgent:
             return best_score, best_move
 
     def choose_move(self, game, player):
-        moves = game.get_valid_moves(player)
-        if not moves:
-            return None
-
-        s, move = self.alphabeta(game, self.depth,float('-inf'),float('inf'),True,player)
+        value, move = self.alphabeta(
+            game, self.depth, float('-inf'), float('inf'), True, player)
         return move
