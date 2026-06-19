@@ -21,24 +21,19 @@ for agent1 in [MinimaxAgent, AlphaBetaAgent]:
         print('='*120)
         print(f'{agent1.__name__} for depth {depth}')
         print('=' * 120)
-        print('         agent         |    number of games     |     number of wins    |     win rate      |        run time     ')
+        print('         agent         |    number of games     |     number of wins    |      win rate       |        run time     ')
         for agent2 in [GreedyAgent, RandomAgent]:
             win = 0
             run_time = 0
-            for i in range(20):
+            for i in range(30):
                 t1 = datetime.now()
                 result = play_game(agent1(), agent2())
-                print(result)
+                # print(result)
                 t2=datetime.now()
                 run_time += (t2-t1).total_seconds()
                 if result[0]> result[1]:
                     win +=1
-            print('*'*100)
-            av_time = run_time/20
-            print(f'    {agent2.__name__}        |          20            |          {win}           |          {(win/20)*100}%    |           {av_time}')
+            av_time = run_time/30
+            print(f'    {agent2.__name__}        |          30            |          {win}           |          {(win/30)*100:>5.2f}%    |       {av_time}')
 
             print("_"*120)
-# print(play_game(GreedyAgent(), MinimaxAgent()))
-# print(play_game(GreedyAgent(), MinimaxAgent()))
-# print(play_game(MinimaxAgent() ,GreedyAgent()))
-# print(play_game(MinimaxAgent() ,GreedyAgent()))
